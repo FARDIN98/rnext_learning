@@ -1,12 +1,12 @@
 import AddTask from "./components/AddTask";
 import TaskList from "./components/TaskList";
 import { initialTasks } from './data/tasks';
-import { useReducer } from 'react';
 import taskReducer from "./reducers/taskReducer";
+import { useImmerReducer } from "use-immer";
 
 
 export default function App(){
-  const [tasks, dispatch] = useReducer( taskReducer, initialTasks);
+  const [tasks, dispatch] = useImmerReducer( taskReducer, initialTasks);
 
   const getNextId = (data) => {
     /* array ke amra choto kore ekta value te niye ashbo mane amar porer id ta dorkar. Ekta array ke choto kore ekta value te niye ashar function hoilo reduce.  */
