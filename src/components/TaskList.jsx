@@ -3,9 +3,9 @@ import Task from "./Task";
 
 export default function TaskList({tasks, onChangeTask, onDeleteTask}) {
   return (
-    <ul>
+    <ul >
       {
-        tasks.map(task => <Task onChangeTask={onChangeTask} onDeleteTask={onDeleteTask} key={task.id} task={task} />)
+        tasks.map(task => <Task key={task.id} task={task} onChangeTask={onChangeTask} onDeleteTask={onDeleteTask}   />)
       }
     </ul>
   );
