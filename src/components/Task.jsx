@@ -1,7 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-export default function Task({ task, onChangeTask, onDeleteTask }) {
+import { useTasksDispatch } from "../context/TasksContext";
+export default function Task({ task }) {
   const [isEditing, setIsEditing] = useState(false);
+
+  const dispatch = useTasksDispatch();
 
   let taskContent;
 
@@ -11,9 +14,12 @@ export default function Task({ task, onChangeTask, onDeleteTask }) {
         <input
           value={task.text}
           onChange={(e) => {
-            onChangeTask({
-              ...task,
-              text: e.target.value,
+            dispatch({
+              type: "changed",
+              task: {
+                ...task,
+                text: e.target.value
+              }
             });
           }}
         />
@@ -36,16 +42,28 @@ export default function Task({ task, onChangeTask, onDeleteTask }) {
             type="Checkbox"
             checked={task.done}
             onChange={(e) => {
-              onChangeTask({
-                ...task,
-                done: e.target.checked,
+              dispatch({
+                type: "changed",
+                task: {
+                  ...task,
+                  done: e.target.checked
+                }
               });
             }}
           />
 
           {taskContent}
 
-          <button onClick={() => onDeleteTask(task.id)}>Delete</button>
+          <button
+            onClick={() =>
+              dispatch({
+                type: "deleted",
+                taskId: task.id,
+              })
+            }
+          >
+            Delete
+          </button>
         </label>
       </li>
       <br />
